@@ -1,7 +1,8 @@
 ### Setup
 1. clone the repository: `git clone xx`
 2. install dependencies: `cd roli-tect-test && npm i`
-3. Ensure your default AWS profile credentials have permission to access the private S3 Bucket that the app will read from.
+3. update .env.local with your S3 bucket name, and the s3 bucket region
+4. Ensure your default AWS profile credentials have permission to access the private S3 Bucket that the app will read from.
   - EG: `~/.aws/credentials`
 ```txt
 [default]

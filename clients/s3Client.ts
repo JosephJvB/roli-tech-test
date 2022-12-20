@@ -2,7 +2,7 @@ import { S3 } from 'aws-sdk'
 import { CommonPrefixList, ListObjectsV2Request } from 'aws-sdk/clients/s3'
 
 export type S3Contents = {
-  files: string[]
+  fileKeys: string[]
   folders: string[]
 }
 
@@ -16,12 +16,21 @@ export default class S3Client {
     this.client = new S3({ region })
   }
 
-  async getRootItems(bucket: string) {
+  async getPresignedUrl(bucket: string, key: string, expires: number = 3600): Promise<string> {
+    return this.client.getSignedUrlPromise('getObject', {
+      Bucket: bucket,
+      Key: key,
+      Expires: expires
+    })
+
+  }
+
+  async getRootItems(bucket: string): Promise<S3Contents> {
     console.log(
       's3Client.getAllObjects',
       `bucket=${bucket}`,
     )
-    const files: string[] = []
+    const fileKeys: string[] = []
     const folders: string[] = []
     let continueToken: string | null = null
     do {
@@ -45,18 +54,18 @@ export default class S3Client {
       }
       for (const c of contents) {
         if (c.Key) {
-          files.push(c.Key)
+          fileKeys.push(c.Key)
         }
       }
       continueToken = res.NextContinuationToken || null
     } while (!!continueToken)
     console.log(
       's3Client.getAllObjects',
-      `files.length=${files.length}`,
+      `files.length=${fileKeys.length}`,
       `folders.length=${folders.length}`,
     )
     return {
-      files,
+      fileKeys,
       folders,
     }
   }

@@ -7,13 +7,31 @@ type ApiError = {
   data?: any
 }
 
-const s3Client = new S3Client(process.env.S3_REGION!)
+export type S3File = {
+  name: string
+  url: string
+}
+export type S3RootData = {
+  folders: string[]
+  files: S3File[]
+}
+const s3Client = new S3Client(process.env.NEXT_PUBLIC_S3_REGION!)
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<S3Contents | ApiError>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<S3RootData | ApiError>) {
   try {
     console.log('s3Objects.handler: invoked')
-    const allObjects = await s3Client.getRootItems(process.env.S3_BUCKET_NAME!)
-    res.status(200).json(allObjects)
+    const { fileKeys, folders } = await s3Client.getRootItems(process.env.NEXT_PUBLIC_S3_BUCKET_NAME!)
+    const withUrls: S3File[] = await Promise.all(fileKeys.map(async (key) => {
+      const url = await s3Client.getPresignedUrl(process.env.NEXT_PUBLIC_S3_BUCKET_NAME!, key)
+      return {
+        name: key,
+        url,
+      }
+    }))
+    res.status(200).json({
+      files: withUrls,
+      folders,
+    })
     console.log('s3Objects.handler: success')
   } catch (e: any) {
     console.error(e)
