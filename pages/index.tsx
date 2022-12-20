@@ -34,20 +34,34 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className="info">
+        <div>
           <h1>Roli Tech Test - S3 File Browser</h1>
-          <p>S3 Bucket name: {process.env.NEXT_PUBLIC_S3_BUCKET_NAME}</p>
-          <p>S3 Bucket region: {process.env.NEXT_PUBLIC_S3_REGION}</p>
         </div>
-        <div className="s3-objects">
-          <ul className="files">
-            {rootFolders.map(folderName => <li key={folderName}>{folderName}</li>)}
-          </ul>
-          <ul className="files">
-            {rootFiles.map(f => <li key={f.name}>
-              <File name={f.name} url={f.url}></File>
-            </li>)}
-          </ul>
+        <div className={styles.fileExplorer}>
+          <div className={styles.sideBar}>
+            <div className={styles.buttonContainer}>
+              <span className={styles.buttonRed}></span>
+              <span className={styles.buttonYellow}></span>
+              <span className={styles.buttonGreen}></span>
+            </div>
+          </div>
+          <div className={styles.explorerMain}>
+            <div className={styles.explorerTop}>
+              <span className={styles.filePath}>
+                s3://{process.env.NEXT_PUBLIC_S3_BUCKET_NAME}/
+              </span>
+              <span className={styles.region}>
+                {process.env.NEXT_PUBLIC_S3_REGION}
+              </span>
+            </div>
+            <ul className={styles.list}>
+              {rootFolders.map(folderName => <li key={folderName}>{folderName}</li>)}
+              {rootFiles.map(f => <li key={f.name}>
+                <File name={f.name} url={f.url}></File>
+              </li>)}
+            </ul>
+            <div className={styles.explorerFooter}></div>
+          </div>
         </div>
       </main>
     </>

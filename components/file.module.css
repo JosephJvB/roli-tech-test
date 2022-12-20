@@ -1,0 +1,5 @@
+.file {
+  color: var(--lumiBlue);
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -1,0 +1,19 @@
+:root {
+  --errorRed: rgba(250, 6, 6, 1);
+  --gold: #FBC93C;
+  --lumiBlue: #1B1DC9;
+  --fadedBlue: #7476EF;
+  --darkBlue: #000097;
+  --darkerBlue: rgba(0, 0, 151, 1);
+  --lumiCyan: rgba(163, 255, 235, 1);
+  --lumiPink: rgba(255, 219, 219, 1);
+  --lumiLightGrey: rgba(200, 200, 200, 1);
+  --lumiMidGrey: rgba(211, 211, 211, 1);
+  --lumiDarkGrey: rgba(162, 162, 162, 1);
+  --alpine: #9AE8FF;
+  --rose: #EF6E7E;
+  --darkPurple: #5F1F89;
+  --aqua: #64E5B7;
+  --coral: #E94E57;
+  --lightGrey: #E5E5E5;
+}
