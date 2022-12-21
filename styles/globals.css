@@ -42,6 +42,9 @@
   --mac-red: rgb(245, 96, 87);
   --mac-yellow: rgb(249, 188, 47);
   --mac-green: rgb(72, 177, 39);
+
+  --fileSize-width: 100px;
+  --fileName-width: 300px;
 }
 
 @media (prefers-color-scheme: dark) {

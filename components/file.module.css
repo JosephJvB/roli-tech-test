@@ -1,5 +1,9 @@
-.file {
+.fileName {
+  width: var(--fileName-width);
   color: var(--lumiBlue);
   text-decoration: underline;
-  cursor: pointer;
+  display: inline-flex;
+}
+.fileSize {
+  width: var(--fileSize-width);
 }

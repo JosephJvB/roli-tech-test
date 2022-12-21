@@ -12,6 +12,7 @@
   background-color: var(--lumiBlue);
   padding: 20px;
   border-radius: 20px;
+  font-family: var(--fontFamilyHeading);
 }
 .title {
   color: white;
@@ -76,12 +77,6 @@
   align-items: center;
   padding: 0 20px;
 }
-.filePath {
-
-}
-.region {
-
-}
 .explorerFooter {
   border-top: solid 1px var(--lumiLightGrey);
   height: 30px;
@@ -93,6 +88,18 @@
   width: 100%;
   margin: auto 0;
   font-size: 14px;
+}
+.listHeader {
+  height: 30px;
+  border-bottom: solid 1px var(--lumiLightGrey);
+  padding: 5px 20px;
+  display: flex;
+}
+.nameHeader {
+  width: var(--fileName-width);
+}
+.sizeHeader {
+  width: var(--fileSize-width);
 }
 .list {
   width: 100%;
@@ -106,6 +113,11 @@
 }
 .list > li:nth-child(even) {
   background-color: rgb(244, 245, 245);
+}
+.folder {
+  color: var(--lumiBlue);
+  text-decoration: underline;
+  cursor: pointer;
 }
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {

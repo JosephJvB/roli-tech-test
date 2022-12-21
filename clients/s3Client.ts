@@ -1,8 +1,13 @@
 import { S3 } from 'aws-sdk'
 import { CommonPrefixList, ListObjectsV2Request } from 'aws-sdk/clients/s3'
 
+export type S3File = {
+  name: string
+  url: string
+  size: number
+}
 export type S3Contents = {
-  fileKeys: string[]
+  files: S3File[]
   folders: string[]
 }
 
@@ -25,12 +30,12 @@ export default class S3Client {
 
   }
 
-  async getRootItems(bucket: string): Promise<S3Contents> {
+  async getObjects(bucket: string, prefix: string = ''): Promise<S3Contents> {
     console.log(
       's3Client.getAllObjects',
       `bucket=${bucket}`,
     )
-    const fileKeys: string[] = []
+    const files: S3File[] = []
     const folders: string[] = []
     let continueToken: string | null = null
     do {
@@ -38,7 +43,7 @@ export default class S3Client {
         Bucket: bucket,
         MaxKeys: 1000,
         Delimiter: '/',
-        Prefix: '',
+        Prefix: prefix,
       }
       if (!!continueToken) {
         params.ContinuationToken = continueToken
@@ -54,18 +59,22 @@ export default class S3Client {
       }
       for (const c of contents) {
         if (c.Key) {
-          fileKeys.push(c.Key)
+          files.push({
+            name: c.Key,
+            url: '',
+            size: c.Size || 0,
+          })
         }
       }
       continueToken = res.NextContinuationToken || null
     } while (!!continueToken)
     console.log(
       's3Client.getAllObjects',
-      `files.length=${fileKeys.length}`,
+      `files.length=${files.length}`,
       `folders.length=${folders.length}`,
     )
     return {
-      fileKeys,
+      files,
       folders,
     }
   }

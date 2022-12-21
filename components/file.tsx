@@ -1,14 +1,14 @@
 import React from 'react'
-import { S3File } from '../pages/api/s3/root'
+import { S3File } from '../clients/s3Client'
 import styles from './file.module.css'
 
 export default (props: S3File) => {
-  function openDownloadUrl() {
-    window?.open(props.url, '_blank')?.focus()
-  }
   return (
-    <span className={styles.file} onClick={openDownloadUrl}>
-      {props.name}
-    </span>
+    <>
+      <a href={props.url} download className={styles.fileName} target="_blank">
+        {props.name}
+      </a>
+      <span className={styles.fileSize}>{Math.ceil(props.size / 1000)} kb</span>
+    </>
   )
 }
