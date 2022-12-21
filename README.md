@@ -40,5 +40,5 @@ It should:
 
 zip
 ```sh
-zip -r ./roli-test.zip ./roli-tech-test -x "*.DS_Store*" -x "*node_modules*" -x "*.git*" -x "*.next*"
+zip -r ./roli-test.zip ./roli-tech-test -x "*.DS_Store*" -x "*node_modules*" -x "*.git*" -x "*.next*" -x "*.env.local"
 ```
