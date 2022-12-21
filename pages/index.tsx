@@ -10,20 +10,21 @@ const inter = Inter({ subsets: ['latin'] })
 
 
 export default function Home() {
-  const [rootFiles, setRootFiles] = React.useState<S3File[]>([])
-  const [rootFolders, setRootFolders] = React.useState<string[]>([])
-  async function loadS3RootObjects() {
+  const [files, setFiles] = React.useState<S3File[]>([])
+  const [folders, setFolders] = React.useState<string[]>([])
+  const [prefix, setPrefix] = React.useState<string>('')
+  async function loadS3Objects() {
     try {
       const res: S3RootData = await fetch('/api/s3/root').then(r => r.json())
-      setRootFolders(res.folders)
-      setRootFiles(res.files)
+      setFolders(res.folders)
+      setFiles(res.files)
     } catch (e) {
       console.error(e)
       console.error('loadS3Objects failed')
     }
   }
   React.useEffect(() => {
-    loadS3RootObjects()
+    loadS3Objects()
   }, [])
   return (
     <>
@@ -34,8 +35,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div>
-          <h1>Roli Tech Test - S3 File Browser</h1>
+        <div className={styles.titleBackground}>
+          <h1 className={styles.title}>Roli Tech Test - S3 File Browser</h1>
         </div>
         <div className={styles.fileExplorer}>
           <div className={styles.sideBar}>
@@ -47,20 +48,19 @@ export default function Home() {
           </div>
           <div className={styles.explorerMain}>
             <div className={styles.explorerTop}>
-              <span className={styles.filePath}>
-                s3://{process.env.NEXT_PUBLIC_S3_BUCKET_NAME}/
-              </span>
-              <span className={styles.region}>
-                {process.env.NEXT_PUBLIC_S3_REGION}
-              </span>
+              <code className={styles.lsCmd}>
+                <span className={styles.caret}>{'>'}</span> aws s3 list-objects --region {process.env.NEXT_PUBLIC_S3_REGION} --delimiter '/' --prefix '{prefix}' s3://{process.env.NEXT_PUBLIC_S3_BUCKET_NAME}/
+              </code>
             </div>
             <ul className={styles.list}>
-              {rootFolders.map(folderName => <li key={folderName}>{folderName}</li>)}
-              {rootFiles.map(f => <li key={f.name}>
+              {folders.map(folderName => <li key={folderName}>{folderName}</li>)}
+              {files.map(f => <li key={f.name}>
                 <File name={f.name} url={f.url}></File>
               </li>)}
             </ul>
-            <div className={styles.explorerFooter}></div>
+            <div className={styles.explorerFooter}>
+              <p>{folders.length} folders, {files.length} files</p>
+            </div>
           </div>
         </div>
       </main>

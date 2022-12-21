@@ -30,6 +30,8 @@ It should:
 
 ### Stretch:
 - [] use graphQL
+- [] allow nested folder browsing
+- [] return filetype and filesize
 - [] dynamic bucketname from user input
 - [] dynamic region
-- [] allow nested folder browsing
+- [] mobile styling

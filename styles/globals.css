@@ -38,6 +38,10 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+
+  --mac-red: rgb(245, 96, 87);
+  --mac-yellow: rgb(249, 188, 47);
+  --mac-green: rgb(72, 177, 39);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -80,9 +84,11 @@
 }
 
 html,
-body {
+body,
+#__next {
   max-width: 100vw;
   overflow-x: hidden;
+  height: 100vh;
 }
 
 body {

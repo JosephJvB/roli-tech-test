@@ -1,11 +1,24 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   padding: 6rem;
+  background-image: url(/windows-desktop.webp);
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+.titleBackground {
+  background-color: var(--lumiBlue);
+  padding: 20px;
+  border-radius: 20px;
+}
+.title {
+  color: white;
+  font-weight: 400;
 }
 .fileExplorer {
+  background-color: white;
   width: 100%;
   max-width: 900px;
   margin-top: 50px;
@@ -15,7 +28,7 @@
   border-radius: 5px;
 }
 .sideBar {
-  width: 150px;
+  width: 100px;
   background-color: rgb(208, 211, 211);
 }
 .buttonContainer {
@@ -35,16 +48,25 @@
   border: solid 1px var(--lumiLightGrey);
 }
 .buttonRed {
-  background-color: rgb(245, 96, 87);
+  background-color: var(--mac-red);
 }
 .buttonYellow {
-  background-color: rgb(249, 188, 47);
+  background-color: var(--mac-yellow);
 }
 .buttonGreen {
-  background-color: rgb(72, 177, 39);
+  background-color: var(--mac-green);
 }
 .explorerMain {
   width: 100%;
+}
+.caret {
+  color: var(--mac-green);
+}
+.lsCmd {
+  width: 100%;
+  background-color: var(--lumiLightGrey);
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 .explorerTop {
   height: 50px;
@@ -63,6 +85,14 @@
 .explorerFooter {
   border-top: solid 1px var(--lumiLightGrey);
   height: 30px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+}
+.explorerFooter > p {
+  width: 100%;
+  margin: auto 0;
+  font-size: 14px;
 }
 .list {
   width: 100%;
