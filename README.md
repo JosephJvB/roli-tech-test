@@ -3,9 +3,9 @@
 2. install dependencies: `cd roli-tech-test && npm i`
 3. copy example env file: `cp .env.local.example .env.local`
 3. Set S3 bucket variables in `.env.local`:
-  - NEXT_PUBLIC_S3_BUCKET_NAME = your private S3 bucket *name*
+  - NEXT_PUBLIC_S3_BUCKET_NAME = your private S3 bucket __name__
   - NEXT_PUBLIC_S3_REGION = the AWS region which your bucket is in
-4. Handle private S3 bucket access with AWS credentials. You must have an AWS Access Key Id and Secret Access Key that grants permissions for you private S3 bucket
+4. Grant private S3 bucket access with AWS credentials: You __must__ have an AWS Access Key Id and Secret Access Key that grants permissions for your private S3 bucket
   - If your default AWS profile credentials allow access to S3 bucket, the app will work by default
     - Check: mac/linux `~/.aws/credentials` or windows `%USERPROFILE%\.aws\credentials`
 ```txt
