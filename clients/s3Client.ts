@@ -57,8 +57,11 @@ export default class S3Client {
           folders.push(p.Prefix)
         }
       }
+      // weird issue where if folder in S3 is created manually via AWS Console, that folder is returned as an Object, with Key, and Size=0
+      // https://stackoverflow.com/questions/9954521/s3-boto-list-keys-sometimes-returns-directory-key#answer-9960280
+      // fix with c.Key != prefix
       for (const c of contents) {
-        if (c.Key) {
+        if (c.Key && c.Key != prefix) {
           files.push({
             name: c.Key,
             url: '',
