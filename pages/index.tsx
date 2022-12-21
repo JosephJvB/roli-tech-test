@@ -1,11 +1,10 @@
 import Head from 'next/head'
-import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 import React from 'react'
 import File from '../components/file'
 import { S3Contents, S3File } from '../clients/s3Client'
-
-const inter = Inter({ subsets: ['latin'] })
+// import { Inter } from '@next/font/google'
+// const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const [files, setFiles] = React.useState<S3File[]>([])
@@ -13,15 +12,25 @@ export default function Home() {
   const [prefix, setPrefix] = React.useState<string>('')
   async function loadS3Objects() {
     try {
-      const res: S3Contents = await fetch(`/api/objects?prefix=${prefix}`).then(r => r.json())
-      setFolders(res.folders.map(f => f.replace(prefix, '')))
-      setFiles(res.files.map(f => ({
+      const res: Response = await fetch(`/api/objects?prefix=${prefix}`)
+      const resBody: S3Contents = await res.json()
+      if (!res.ok) {
+        throw new Error([
+          'loadS3Objects failed',
+          `httpStatus=${res.status}`,
+          `message=${res.statusText}`,
+          `responseBody=${resBody ? JSON.stringify(resBody) : '""'}`
+        ].join('\n'))
+      }
+      setFolders(resBody.folders.map(f => f.replace(prefix, '')))
+      setFiles(resBody.files.map(f => ({
         ...f,
         name: f.name.replace(prefix, ''),
       })))
-    } catch (e) {
+    } catch (e: any) {
       console.error(e)
       console.error('loadS3Objects failed')
+      alert(e)
     }
   }
   React.useEffect(() => {

@@ -1,18 +1,20 @@
-### Setup
-1. ~~clone the repository: `git clone`~~
+### Setup Steps
 1. unzip the folder provided
 2. install dependencies: `cd roli-tech-test && npm i`
-3. update .env.local with your S3 bucket name, and the region of your S3 bucket
-4. ensure your default AWS profile credentials have permission to access the private S3 Bucket that the app will read from.
-  - EG: `~/.aws/credentials` or `%USERPROFILE%\.aws\credentials`
+3. copy example env file: `cp .env.local.example .env.local`
+3. Set S3 bucket variables in `.env.local`:
+  - NEXT_PUBLIC_S3_BUCKET_NAME = your private S3 bucket *name*
+  - NEXT_PUBLIC_S3_REGION = the AWS region which your bucket is in
+4. Handle private S3 bucket access with AWS credentials. You must have an AWS Access Key Id and Secret Access Key that grants permissions for you private S3 bucket
+  - If your default AWS profile credentials allow access to S3 bucket, the app will work by default
+    - Check: mac/linux `~/.aws/credentials` or windows `%USERPROFILE%\.aws\credentials`
 ```txt
 [default]
 aws_access_key_id = <access key id>
 aws_secret_access_key = <secret access key>
 ```
-  - Why use AWS credentials file? Prefer to not initialize AWS.S3 client with AWS key credentials
-  - If this app were running in the cloud, I would prefer AWS IAM roles to allow private S3 bucket read permissions
-4. `npm run dev` && open https://localhost:3000
+  - Or, you can manually set these credentials in .env.local file, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`
+5. `npm run dev` && open https://localhost:3000
 
 
 ### TASK
